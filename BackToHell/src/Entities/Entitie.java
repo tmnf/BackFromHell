@@ -106,7 +106,7 @@ public abstract class Entitie extends PhysicalBody {
 		else
 			g.drawImage(idle, pt.x, pt.y, size, size, null);
 
-		g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+//		g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 	}
 
 	public abstract void initAnims();
