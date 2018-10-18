@@ -14,8 +14,8 @@ public class PhysicalBody extends GameObject implements Updatable {
 	protected int movY;
 	protected boolean onAir;
 
-	public PhysicalBody(GamePosition pt, BufferedImage texture, int boundSizeX, int boundSizeY, ID id) {
-		super(pt, texture, boundSizeX, boundSizeY, id);
+	public PhysicalBody(GamePosition pt, BufferedImage texture, ID id) {
+		super(pt, texture, id);
 		movY = gravForce;
 	}
 
@@ -26,7 +26,7 @@ public class PhysicalBody extends GameObject implements Updatable {
 		if (this instanceof Player)
 			ob = new Player(pos);
 		else
-			ob = new GameObject(pos, null, getBounds().width, boundSizeY, id);
+			ob = new GameObject(pos, getBounds(), ID.Entities);
 
 		if (!Game.getInstance().checkColision(ob)) {
 			setPosition(pos);
@@ -35,7 +35,6 @@ public class PhysicalBody extends GameObject implements Updatable {
 			movY = gravForce;
 			onAir = false;
 		}
-		System.out.println(Game.getInstance().checkColision(ob));
 	}
 
 	@Override

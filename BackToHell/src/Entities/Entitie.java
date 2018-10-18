@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import Enums.ID;
 import MainGame.Game;
+import MainGame.GameObject;
+import Tiles.Tile;
 import Utils.Animation;
 import Utils.GamePosition;
 import Utils.PhysicalBody;
@@ -22,27 +24,31 @@ public abstract class Entitie extends PhysicalBody {
 	private int movX, jumpForce = -15;
 	private int speed = 1;
 
-	private boolean playerNear;
+	private boolean playerNear, stuck;
 	private GamePosition toMove;
 	private Temporizer clock;
 
 	public Entitie(GamePosition pt, BufferedImage texture) {
-		super(pt, texture, size, size, ID.Entities);
+		super(pt, texture, ID.Entities);
 		clock = new Temporizer();
+		initAnims();
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		checkPlayer();
-		move();
+		if (!stuck) {
+			lookForPlayer();
+			move();
+		}
 		anim();
+		checkIfStuck();
 	}
 
-	private void checkPlayer() {
+	private void lookForPlayer() {
 		GamePosition pos = Game.getInstance().getPlayer().getPos();
-		int tileSize = 64;
-		if (getPos().distanceTo(pos) <= tileSize * 5)
+
+		if (getPos().distanceTo(pos) <= Tile.SIZE * 5)
 			playerNear = true;
 		else
 			playerNear = false;
@@ -51,10 +57,11 @@ public abstract class Entitie extends PhysicalBody {
 	private void move() {
 
 		GamePosition aux = getPos().plus(new GamePosition(movX, 0));
+		GameObject temp = new GameObject(aux, bounds, ID.Entities);
 
-		if (colides(new Zombie(aux), Game.getInstance().getPlayer()))
+		if (colides(temp, Game.getInstance().getPlayer()))
 			colideWithPlayer();
-		else if (!Game.getInstance().checkColision(new Zombie(aux)))
+		else if (!Game.getInstance().checkColision(temp))
 			setPosition(aux);
 		else
 			jump();
@@ -73,6 +80,18 @@ public abstract class Entitie extends PhysicalBody {
 		}
 	}
 
+	private void checkIfStuck() {
+		GamePosition tmp = getPos().getRandomNearPosition(1);
+		if (tmp.equals(getPos())) {
+			stuck = true;
+			toMove = null;
+			movX = 0;
+		} else if (stuck) {
+			stuck = false;
+			toMove = tmp;
+		}
+	}
+
 	private void followPlayer() {
 		GamePosition pos = Game.getInstance().getPlayer().getPos();
 		if (pos.x > pt.x)
@@ -84,7 +103,7 @@ public abstract class Entitie extends PhysicalBody {
 	private void randomMove() {
 
 		if (toMove == null)
-			toMove = getPos().getRandomNearPosition(1);
+			toMove = getPos().getRandomNearPosition(4);
 		else {
 			if (toMove.x > pt.x)
 				movX = speed;
@@ -92,10 +111,9 @@ public abstract class Entitie extends PhysicalBody {
 				movX = -speed;
 		}
 
-		if (getPos().distanceTo(toMove) <= 3) {
-			if (clock.checkClock(2))
+		if (getPos().distanceToInX(toMove) < size) {
+			if (clock.checkClock(1))
 				toMove = null;
-			movX = 0;
 		}
 	}
 
@@ -106,7 +124,6 @@ public abstract class Entitie extends PhysicalBody {
 		else
 			g.drawImage(idle, pt.x, pt.y, size, size, null);
 
-//		g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
 	}
 
 	public abstract void initAnims();

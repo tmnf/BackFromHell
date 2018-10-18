@@ -12,19 +12,24 @@ public class GameObject implements Renderable {
 
 	protected GamePosition pt;
 	protected BufferedImage texture;
-	protected int boundSizeX, boundSizeY;
+	protected Rectangle bounds;
 	protected ID id;
 
-	public GameObject(GamePosition pt, BufferedImage texture, int boundSizeX, int boundSizeY, ID id) {
+	public GameObject(GamePosition pt, BufferedImage texture, ID id) {
 		this.pt = pt;
 		this.texture = texture;
-		this.boundSizeX = boundSizeX;
-		this.boundSizeY = boundSizeY;
+		this.bounds = getBounds();
+		this.id = id;
+	}
+
+	public GameObject(GamePosition pt, Rectangle bounds, ID id) {
+		this.pt = pt;
+		this.bounds = bounds;
 		this.id = id;
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(texture, pt.x, pt.y, boundSizeX, boundSizeY, null);
+		g.drawImage(texture, pt.x, pt.y, bounds.width, bounds.height, null);
 	}
 
 	public GamePosition getPos() {
@@ -39,8 +44,9 @@ public class GameObject implements Renderable {
 		return id;
 	}
 
+	// Corrigir bug sobreposto
 	public Rectangle getBounds() {
-		return new Rectangle(pt.x, pt.y, boundSizeX, boundSizeY);
+		return new Rectangle(pt.x + 20, pt.y + 5, 24, 64 - 5);
 	}
 
 }

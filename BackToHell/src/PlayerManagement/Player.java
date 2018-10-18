@@ -25,7 +25,7 @@ public class Player extends PhysicalBody {
 	private static final int MaxHealth = 100;
 
 	public Player(GamePosition pt) {
-		super(pt, Assets.player, size, size, ID.Player);
+		super(pt, Assets.player, ID.Player);
 		initAnims();
 		life = MaxHealth;
 		level = 1;
@@ -55,7 +55,7 @@ public class Player extends PhysicalBody {
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(pt.x + 20, pt.y + 5, 24, boundSizeY - 5);
+		return new Rectangle(pt.x + 20, pt.y + 5, 24, size - 5);
 	}
 
 	public void initAnims() {
@@ -79,7 +79,7 @@ public class Player extends PhysicalBody {
 			current.runAnimation();
 	}
 
-	public void takeDamage(int i) {
+	public synchronized void takeDamage(int i) {
 		life -= i;
 	}
 

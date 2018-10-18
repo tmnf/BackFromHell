@@ -1,8 +1,6 @@
 /Entities/
-/Enums/
-/Interfaces/
+/Utils/
 /MainGame/
 /PlayerManagement/
-/RenderManagement/
 /Tiles/
-/Utils/
+/RenderManagement/

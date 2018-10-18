@@ -8,21 +8,18 @@ import Enums.State;
 import Interfaces.Renderable;
 import MainGame.Game;
 import Utils.Assets;
-import Utils.Temporizer;
 
 public class LoadingScreen implements Renderable {
 
-	private int loaded, fill;
-	private Temporizer clock;
+	public static final int PROCESSES = 4;
+	public static final int fullLoaded = 660;
 
-	public LoadingScreen() {
-		clock = new Temporizer();
-	}
+	private int loaded, fill;
 
 	@Override
 	public void render(Graphics g) {
-		if (loaded != 100)
-			fill = loaded * 6;
+
+		fill = (fullLoaded / PROCESSES) * loaded;
 
 		g.drawImage(Assets.loadingScreen, 0, 0, null);
 
@@ -36,20 +33,12 @@ public class LoadingScreen implements Renderable {
 		g.setColor(Color.red);
 		g.fillRect(172, 569, fill, 83);
 
-		refreshLoading();
+		if (loaded != 100)
+			Game.getInstance().setState(State.Game);
 	}
 
-	private void refreshLoading() {
-		if (loaded >= 100) {
-			loaded = 100;
-			fill = 660;
-			if (clock.checkClock(2))
-				Game.getInstance().setState(State.Game);
-		}
-
-		else if (clock.checkClock(1))
-			loaded += 15;
-
+	public void refreshLoading() {
+		loaded++;
 	}
 
 }

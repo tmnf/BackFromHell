@@ -57,17 +57,23 @@ public class Game extends Canvas implements Runnable {
 
 	public void FunctionsInit() {
 		Assets.init();
+		loading = new LoadingScreen();
 		// Sound.playSoundLoop("sounds/backmusic.wav", 1);
+		loading.refreshLoading();
+
 		menu = new Menu();
 		gui = new GUI();
 		handler = new ObjectHandler();
 		gameCamera = new GameCamera(0, 0);
 		player1 = new Player(new GamePosition(0, Height / 2 - 100));
 		handler.addObject(player1);
+		loading.refreshLoading();
+
 		world = new World(handler);
 		world.terraFormer();
+		loading.refreshLoading();
+
 		currentState = State.Menu;
-		loading = new LoadingScreen();
 	}
 
 	public synchronized void start() {

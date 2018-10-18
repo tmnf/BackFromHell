@@ -15,19 +15,13 @@ public class Zombie extends Entitie {
 
 	public Zombie(GamePosition pt) {
 		super(pt, Assets.zombie);
-		initAnims();
 		NotTired = true;
 		clock = new Temporizer();
 	}
 
 	@Override
-	public void update() {
-		super.update();
-	}
-
-	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(pt.x + 20, pt.y + 5, 24, boundSizeY - 5);
+		return new Rectangle(pt.x + 20, pt.y + 5, 24, size - 5);
 	}
 
 	@Override
@@ -42,7 +36,7 @@ public class Zombie extends Entitie {
 	public void colideWithPlayer() {
 		if (clock.checkClock(1))
 			NotTired = true;
-		
+
 		if (NotTired) {
 			Game.getInstance().getPlayer().takeDamage(5);
 			NotTired = false;

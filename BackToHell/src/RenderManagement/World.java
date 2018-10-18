@@ -25,8 +25,8 @@ public class World {
 	}
 
 	public void terraFormer() {
-		for (int a = 0; a <= WorldLimit; a += Tile.boundSize)
-			for (int b = Game.Height / 2; b <= HeightLimit; b += Tile.boundSize)
+		for (int a = 0; a <= WorldLimit; a += Tile.SIZE)
+			for (int b = Game.Height / 2; b <= HeightLimit; b += Tile.SIZE)
 				if (b <= Game.Height + 256)
 					formGrass(a, b);
 				else
