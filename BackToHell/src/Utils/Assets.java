@@ -35,9 +35,9 @@ public class Assets {
 	private static SpriteSheet tiles;
 
 	public static void init() {
-		playerTile = new SpriteSheet(ImageLoader.loadImage("/sprites/player.png"));
-		tiles = new SpriteSheet(ImageLoader.loadImage("/sprites/tiles.png"));
-		zombieTile = new SpriteSheet(ImageLoader.loadImage("/sprites/zombie.png"));
+		playerTile = new SpriteSheet(FileLoader.loadImage("/sprites/player.png"));
+		tiles = new SpriteSheet(FileLoader.loadImage("/sprites/tiles.png"));
+		zombieTile = new SpriteSheet(FileLoader.loadImage("/sprites/zombie.png"));
 		// skeletonTile = new
 		// SpriteSheet(ImageLoader.loadImage("/sprites/skeleton.png"));
 
@@ -49,20 +49,20 @@ public class Assets {
 	}
 
 	private static void getGUI() {
-		lifebar = ImageLoader.loadImage("/images/lifebar.png");
+		lifebar = FileLoader.loadImage("/images/lifebar.png");
 
 		// Loading
-		loadingScreen = ImageLoader.loadImage("/images/loading.png");
+		loadingScreen = FileLoader.loadImage("/images/loading.png");
 	}
 
 	public static void getMenu() {
-		background = ImageLoader.loadImage("/images/background.png");
-		single = ImageLoader.loadImage("/images/singlebutton.png");
-		singlepress = ImageLoader.loadImage("/images/singlepressed.png");
-		multi = ImageLoader.loadImage("/images/multi.png");
-		multipressed = ImageLoader.loadImage("/images/multipressed.png");
-		exit = ImageLoader.loadImage("/images/exit.png");
-		exitpress = ImageLoader.loadImage("/images/exitpressed.png");
+		background = FileLoader.loadImage("/images/background.png");
+		single = FileLoader.loadImage("/images/singlebutton.png");
+		singlepress = FileLoader.loadImage("/images/singlepressed.png");
+		multi = FileLoader.loadImage("/images/multi.png");
+		multipressed = FileLoader.loadImage("/images/multipressed.png");
+		exit = FileLoader.loadImage("/images/exit.png");
+		exitpress = FileLoader.loadImage("/images/exitpressed.png");
 	}
 
 	public static void startPlayer() {
@@ -101,7 +101,7 @@ public class Assets {
 	public static void startTiles() {
 		grass = tiles.crop(width * 5 + 5, 0, width, height);
 		dirt = tiles.crop(width * 6 + 6, 0, width, height);
-		sky = ImageLoader.loadImage("/images/sky.png");
+		sky = FileLoader.loadImage("/images/sky.png");
 		rock = tiles.crop(7 * width + 7, 0, width, height);
 	}
 
