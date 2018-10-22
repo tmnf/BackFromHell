@@ -9,7 +9,9 @@ public class Assets {
 	// Player
 	public static BufferedImage player, playerFacingLeft, playerFacingRight;
 	public static BufferedImage background, single, singlepress, multi, multipressed, exit, exitpress;
-	public static BufferedImage[] playerRight = new BufferedImage[4];
+
+	public static BufferedImage[] playerIdle = FileLoader.loadFile("./res/animations/playerIdle.anim");
+	public static BufferedImage[] playerRight = FileLoader.loadFile("./res/animations/playerRight.anim");
 	public static BufferedImage[] playerLeft = new BufferedImage[4];
 	//
 
@@ -66,14 +68,7 @@ public class Assets {
 	}
 
 	public static void startPlayer() {
-		playerFacingRight = playerTile.crop(0, 2 * height, width, height);
-		playerFacingLeft = playerTile.crop(0, 3 * height, width, height);
 		player = playerTile.crop(0, 0, width, height);
-
-		playerRight[0] = playerTile.crop(0, 2 * height, width, height);
-		playerRight[1] = playerTile.crop(width, 2 * height, width, height);
-		playerRight[2] = playerTile.crop(0, 2 * height, width, height);
-		playerRight[3] = playerTile.crop(width * 2, 2 * height, width, height);
 
 		playerLeft[0] = playerTile.crop(0, 3 * height, width, height);
 		playerLeft[1] = playerTile.crop(width, 3 * height, width, height);

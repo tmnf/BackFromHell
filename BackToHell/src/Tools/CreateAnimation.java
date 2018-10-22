@@ -1,17 +1,19 @@
 package Tools;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -22,7 +24,7 @@ public class CreateAnimation {
 	private JFrame frame;
 	private File[] files;
 	private String animationName;
-	private static final String PATH = "/Animations/";
+	private final String PATH = "./res/animations/";
 
 	public CreateAnimation() {
 		nameWindow();
@@ -32,15 +34,25 @@ public class CreateAnimation {
 		JFrame frame = new JFrame("Nome da Animção");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.setLayout(new GridLayout(1, 2));
-
+		frame.setLayout(new BorderLayout());
 		frame.setResizable(false);
 
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 2));
+
+		JTextArea txt = new JTextArea("Insira o nome da animção!");
 		JTextField nome = new JTextField();
 		JButton ok = new JButton("OK");
 
-		frame.add(nome);
-		frame.add(ok);
+		txt.setFont(new Font("ARIAL", 1, 20));
+		txt.setEditable(false);
+		nome.setPreferredSize(new Dimension(200, 50));
+		nome.setFont(new Font("ARIAL", 4, 18));
+
+		frame.add(txt, BorderLayout.NORTH);
+		frame.add(panel, BorderLayout.SOUTH);
+		panel.add(nome);
+		panel.add(ok);
 
 		ok.addActionListener(new ActionListener() {
 			@Override
@@ -72,6 +84,10 @@ public class CreateAnimation {
 		JButton loadPics = new JButton("LoadPics");
 		JButton GenerateAnim = new JButton("GenerateAnim");
 		JButton exit = new JButton("Exit");
+
+		loadPics.setPreferredSize(new Dimension(150, 80));
+		GenerateAnim.setPreferredSize(new Dimension(150, 80));
+		exit.setPreferredSize(new Dimension(150, 80));
 
 		JFileChooser chooser = new JFileChooser();
 		chooser.setMultiSelectionEnabled(true);
@@ -115,12 +131,14 @@ public class CreateAnimation {
 				System.out.println("So um frame nao forma uma animação");
 			else {
 				FileLoader.saveFile(PATH + animationName + ".anim", files);
+				JOptionPane.showMessageDialog(frame, "Animção criada com Sucesso!", "Operação Concluida", 3);
 			}
 		}
 	}
 
 	public static void main(String[] args) {
 		new CreateAnimation();
+
 	}
 
 }

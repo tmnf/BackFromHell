@@ -27,6 +27,7 @@ public class FileLoader {
 			return imgs;
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

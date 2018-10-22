@@ -2,7 +2,6 @@ package PlayerManagement;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import Enums.ID;
 import MainGame.Game;
@@ -14,8 +13,7 @@ import Utils.PhysicalBody;
 public class Player extends PhysicalBody {
 
 	// =========ANIMAÇÕES==============//
-	private Animation anim, anim2, current;
-	private BufferedImage idle;
+	private Animation anim, anim2, idle, current;
 	// ================================//
 
 	public int movX, life, level;
@@ -47,10 +45,7 @@ public class Player extends PhysicalBody {
 
 	@Override
 	public void render(Graphics g) {
-		if (current != null)
-			current.drawAnimation(g, pt.x, pt.y, 0);
-		else
-			g.drawImage(idle, pt.x, pt.y, size, size, null);
+		current.drawAnimation(g, pt.x, pt.y, 0);
 	}
 
 	@Override
@@ -60,23 +55,24 @@ public class Player extends PhysicalBody {
 
 	public void initAnims() {
 		anim = new Animation(5, Assets.playerLeft[0], Assets.playerLeft[1], Assets.playerLeft[0], Assets.playerLeft[3]);
-		anim2 = new Animation(5, Assets.playerRight[0], Assets.playerRight[1], Assets.playerRight[0],
-				Assets.playerRight[3]);
-		idle = Assets.player;
+		anim2 = new Animation(2, Assets.playerRight[0], Assets.playerRight[1], Assets.playerRight[2],
+				Assets.playerRight[3], Assets.playerRight[4], Assets.playerRight[5], Assets.playerRight[6],
+				Assets.playerRight[7]);
+		idle = new Animation(2, Assets.playerIdle[0], Assets.playerIdle[1], Assets.playerIdle[2], Assets.playerIdle[3],
+				Assets.playerIdle[4], Assets.playerIdle[5], Assets.playerIdle[6], Assets.playerIdle[7],
+				Assets.playerIdle[8], Assets.playerIdle[9]);
+		;
 	}
 
 	public void anim() {
 		if (movX < 0) {
 			current = anim;
-			idle = Assets.playerFacingLeft;
 		} else if (movX > 0) {
 			current = anim2;
-			idle = Assets.playerFacingRight;
 		} else
-			current = null;
+			current = idle;
 
-		if (current != null)
-			current.runAnimation();
+		current.runAnimation();
 	}
 
 	public synchronized void takeDamage(int i) {
