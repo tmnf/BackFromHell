@@ -12,12 +12,12 @@ import Utils.PhysicalBody;
 
 public class Player extends PhysicalBody {
 
-	// =========ANIMAÇÕES==============//
-	private Animation anim, anim2, idle, current;
-	// ================================//
+	// =========ANIMAÇÕES=============================================//
+	private Animation idleLeft, idleRight, RunLeft, RunRight, current;
+	// ===============================================================//
 
 	public int movX, life, level;
-	public int speed = 8, jumpStrength = 15, runningSpeed = 14;
+	public int speed = 8, jumpStrength = 15, runningSpeed = 14, wasMoving = 0;
 
 	private static final int size = 64;
 	private static final int MaxHealth = 100;
@@ -54,23 +54,25 @@ public class Player extends PhysicalBody {
 	}
 
 	public void initAnims() {
-		anim = new Animation(5, Assets.playerLeft[0], Assets.playerLeft[1], Assets.playerLeft[0], Assets.playerLeft[3]);
-		anim2 = new Animation(2, Assets.playerRight[0], Assets.playerRight[1], Assets.playerRight[2],
-				Assets.playerRight[3], Assets.playerRight[4], Assets.playerRight[5], Assets.playerRight[6],
-				Assets.playerRight[7]);
-		idle = new Animation(2, Assets.playerIdle[0], Assets.playerIdle[1], Assets.playerIdle[2], Assets.playerIdle[3],
-				Assets.playerIdle[4], Assets.playerIdle[5], Assets.playerIdle[6], Assets.playerIdle[7],
-				Assets.playerIdle[8], Assets.playerIdle[9]);
-		;
+		idleLeft = Assets.playerIdleLeft;
+		idleRight = Assets.playerIdleRight;
+		RunLeft = Assets.playerRunLeft;
+		RunRight = Assets.playerRunRight;
 	}
 
 	public void anim() {
 		if (movX < 0) {
-			current = anim;
+			current = RunLeft;
+			wasMoving = -1;
 		} else if (movX > 0) {
-			current = anim2;
-		} else
-			current = idle;
+			current = RunRight;
+			wasMoving = 1;
+		} else {
+			if (wasMoving < 0)
+				current = idleLeft;
+			else
+				current = idleRight;
+		}
 
 		current.runAnimation();
 	}

@@ -10,9 +10,12 @@ public class Assets {
 	public static BufferedImage player, playerFacingLeft, playerFacingRight;
 	public static BufferedImage background, single, singlepress, multi, multipressed, exit, exitpress;
 
-	public static BufferedImage[] playerIdle = FileLoader.loadFile("./res/animations/playerIdle.anim");
-	public static BufferedImage[] playerRight = FileLoader.loadFile("./res/animations/playerRight.anim");
-	public static BufferedImage[] playerLeft = new BufferedImage[4];
+	// PlayerAnims
+	public static Animation playerIdleRight;
+	public static Animation playerIdleLeft;
+	public static Animation playerRunRight;
+	public static Animation playerRunLeft;
+
 	//
 
 	// GUI
@@ -37,12 +40,11 @@ public class Assets {
 	private static SpriteSheet tiles;
 
 	public static void init() {
-		playerTile = new SpriteSheet(FileLoader.loadImage("/sprites/player.png"));
-		tiles = new SpriteSheet(FileLoader.loadImage("/sprites/tiles.png"));
-		zombieTile = new SpriteSheet(FileLoader.loadImage("/sprites/zombie.png"));
+		playerTile = new SpriteSheet(ImageHandler.loadImage("/sprites/player.png"));
+		tiles = new SpriteSheet(ImageHandler.loadImage("/sprites/tiles.png"));
+		zombieTile = new SpriteSheet(ImageHandler.loadImage("/sprites/zombie.png"));
 		// skeletonTile = new
 		// SpriteSheet(ImageLoader.loadImage("/sprites/skeleton.png"));
-
 		startPlayer();
 		startTiles();
 		startEntities();
@@ -51,29 +53,67 @@ public class Assets {
 	}
 
 	private static void getGUI() {
-		lifebar = FileLoader.loadImage("/images/lifebar.png");
+		lifebar = ImageHandler.loadImage("/images/lifebar.png");
 
 		// Loading
-		loadingScreen = FileLoader.loadImage("/images/loading.png");
+		loadingScreen = ImageHandler.loadImage("/images/loading.png");
+	}
+
+	private static Animation creatAnim(BufferedImage[] animFrames, int speed) {
+		switch (animFrames.length) {
+		case 2:
+			return new Animation(speed, animFrames[0], animFrames[1]);
+		case 3:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2]);
+		case 4:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4]);
+		case 5:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4]);
+		case 6:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5]);
+		case 7:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6]);
+		case 8:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7]);
+		case 9:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7], animFrames[8]);
+		case 10:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[3], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7], animFrames[8], animFrames[9]);
+		case 11:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10]);
+		case 12:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10],
+					animFrames[11]);
+		default:
+			return null;
+		}
 	}
 
 	public static void getMenu() {
-		background = FileLoader.loadImage("/images/background.png");
-		single = FileLoader.loadImage("/images/singlebutton.png");
-		singlepress = FileLoader.loadImage("/images/singlepressed.png");
-		multi = FileLoader.loadImage("/images/multi.png");
-		multipressed = FileLoader.loadImage("/images/multipressed.png");
-		exit = FileLoader.loadImage("/images/exit.png");
-		exitpress = FileLoader.loadImage("/images/exitpressed.png");
+		background = ImageHandler.loadImage("/images/background.png");
+		single = ImageHandler.loadImage("/images/singlebutton.png");
+		singlepress = ImageHandler.loadImage("/images/singlepressed.png");
+		multi = ImageHandler.loadImage("/images/multi.png");
+		multipressed = ImageHandler.loadImage("/images/multipressed.png");
+		exit = ImageHandler.loadImage("/images/exit.png");
+		exitpress = ImageHandler.loadImage("/images/exitpressed.png");
 	}
 
 	public static void startPlayer() {
 		player = playerTile.crop(0, 0, width, height);
 
-		playerLeft[0] = playerTile.crop(0, 3 * height, width, height);
-		playerLeft[1] = playerTile.crop(width, 3 * height, width, height);
-		playerLeft[2] = playerTile.crop(0, 3 * height, width, height);
-		playerLeft[3] = playerTile.crop(width * 2, 3 * height, width, height);
+		playerIdleRight = creatAnim(ImageHandler.loadAnim("res/animations/playerIdleRight.anim"), 2);
+		playerIdleLeft = creatAnim(ImageHandler.loadAnim("res/animations/playerIdleLeft.anim"), 2);
+		playerRunRight = creatAnim(ImageHandler.loadAnim("res/animations/playerRunRight.anim"), 2);
+		playerRunLeft = creatAnim(ImageHandler.loadAnim("res/animations/playerRunLeft.anim"), 2);
+		System.out.println("Sucesso");
 	}
 
 	public static void startEntities() {
@@ -96,7 +136,7 @@ public class Assets {
 	public static void startTiles() {
 		grass = tiles.crop(width * 5 + 5, 0, width, height);
 		dirt = tiles.crop(width * 6 + 6, 0, width, height);
-		sky = FileLoader.loadImage("/images/sky.png");
+		sky = ImageHandler.loadImage("/images/sky.png");
 		rock = tiles.crop(7 * width + 7, 0, width, height);
 	}
 
