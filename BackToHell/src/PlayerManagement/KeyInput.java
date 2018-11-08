@@ -55,6 +55,7 @@ public class KeyInput extends KeyAdapter {
 			player1.movX = player1.runningSpeed;
 		if (player1.movX < 0)
 			player1.movX = -player1.runningSpeed;
+		player1.running = true;
 	}
 
 	private void stopRunning() {
@@ -62,6 +63,7 @@ public class KeyInput extends KeyAdapter {
 			player1.movX = player1.speed;
 		if (player1.movX < 0)
 			player1.movX = -player1.speed;
+		player1.running = false;
 	}
 
 	@Override

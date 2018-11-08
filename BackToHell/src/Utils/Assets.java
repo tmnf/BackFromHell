@@ -15,7 +15,12 @@ public class Assets {
 	public static Animation playerIdleLeft;
 	public static Animation playerRunRight;
 	public static Animation playerRunLeft;
-
+	public static Animation playerWalkRight;
+	public static Animation playerWalkLeft;
+	public static Animation playerJumpLeft;
+	public static Animation playerJumpRight;
+	public static Animation playerDeathLeft;
+	public static Animation playerDeathRight;
 	//
 
 	// GUI
@@ -59,43 +64,6 @@ public class Assets {
 		loadingScreen = ImageHandler.loadImage("/images/loading.png");
 	}
 
-	private static Animation creatAnim(BufferedImage[] animFrames, int speed) {
-		switch (animFrames.length) {
-		case 2:
-			return new Animation(speed, animFrames[0], animFrames[1]);
-		case 3:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2]);
-		case 4:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4]);
-		case 5:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4]);
-		case 6:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
-					animFrames[5]);
-		case 7:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
-					animFrames[5], animFrames[6]);
-		case 8:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
-					animFrames[6], animFrames[7]);
-		case 9:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
-					animFrames[6], animFrames[7], animFrames[8]);
-		case 10:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[3], animFrames[4], animFrames[5],
-					animFrames[6], animFrames[7], animFrames[8], animFrames[9]);
-		case 11:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
-					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10]);
-		case 12:
-			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
-					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10],
-					animFrames[11]);
-		default:
-			return null;
-		}
-	}
-
 	public static void getMenu() {
 		background = ImageHandler.loadImage("/images/background.png");
 		single = ImageHandler.loadImage("/images/singlebutton.png");
@@ -109,11 +77,25 @@ public class Assets {
 	public static void startPlayer() {
 		player = playerTile.crop(0, 0, width, height);
 
-		playerIdleRight = creatAnim(ImageHandler.loadAnim("res/animations/playerIdleRight.anim"), 2);
-		playerIdleLeft = creatAnim(ImageHandler.loadAnim("res/animations/playerIdleLeft.anim"), 2);
-		playerRunRight = creatAnim(ImageHandler.loadAnim("res/animations/playerRunRight.anim"), 2);
-		playerRunLeft = creatAnim(ImageHandler.loadAnim("res/animations/playerRunLeft.anim"), 2);
-		System.out.println("Sucesso");
+		playerIdleRight = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerIdleRight.anim"),
+				3);
+		playerIdleLeft = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerIdleLeft.anim"),
+				3);
+		playerRunRight = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerRunRight.anim"),
+				3);
+		playerRunLeft = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerRunLeft.anim"), 3);
+		playerWalkLeft = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerWalkLeft.anim"),
+				3);
+		playerWalkRight = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerWalkRight.anim"),
+				3);
+		playerJumpLeft = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerJumpLeft.anim"),
+				3);
+		playerJumpRight = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerJumpRight.anim"),
+				3);
+		playerDeathLeft = Animation.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerDeathLeft.anim"),
+				3);
+		playerDeathRight = Animation
+				.creatAnim(ImageHandler.loadAnim("res/animations/playerAnims/playerDeathRight.anim"), 3);
 	}
 
 	public static void startEntities() {

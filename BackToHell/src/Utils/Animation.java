@@ -555,6 +555,43 @@ public class Animation {
 		g.drawImage(currentImg, (int) x - offset, (int) y, 64, 64, null);
 	}
 
+	public static Animation creatAnim(BufferedImage[] animFrames, int speed) {
+		switch (animFrames.length) {
+		case 2:
+			return new Animation(speed, animFrames[0], animFrames[1]);
+		case 3:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2]);
+		case 4:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4]);
+		case 5:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4]);
+		case 6:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5]);
+		case 7:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6]);
+		case 8:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7]);
+		case 9:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7], animFrames[8]);
+		case 10:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[3], animFrames[4], animFrames[5],
+					animFrames[6], animFrames[7], animFrames[8], animFrames[9]);
+		case 11:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10]);
+		case 12:
+			return new Animation(speed, animFrames[0], animFrames[1], animFrames[2], animFrames[3], animFrames[4],
+					animFrames[5], animFrames[6], animFrames[7], animFrames[8], animFrames[9], animFrames[10],
+					animFrames[11]);
+		default:
+			return null;
+		}
+	}
+
 	public void setCount(int count) {
 		this.count = count;
 	}

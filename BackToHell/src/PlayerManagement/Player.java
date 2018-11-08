@@ -13,7 +13,8 @@ import Utils.PhysicalBody;
 public class Player extends PhysicalBody {
 
 	// =========ANIMAÇÕES=============================================//
-	private Animation idleLeft, idleRight, RunLeft, RunRight, current;
+	private Animation idleLeft, idleRight, RunLeft, RunRight, WalkLeft, WalkRight, JumpLeft, JumpRight, DeathLeft,
+			DeathRight, current;
 	// ===============================================================//
 
 	public int movX, life, level;
@@ -21,6 +22,8 @@ public class Player extends PhysicalBody {
 
 	private static final int size = 64;
 	private static final int MaxHealth = 100;
+
+	public boolean running;
 
 	public Player(GamePosition pt) {
 		super(pt, Assets.player, ID.Player);
@@ -58,20 +61,43 @@ public class Player extends PhysicalBody {
 		idleRight = Assets.playerIdleRight;
 		RunLeft = Assets.playerRunLeft;
 		RunRight = Assets.playerRunRight;
+		WalkLeft = Assets.playerWalkLeft;
+		WalkRight = Assets.playerWalkRight;
+		JumpLeft = Assets.playerJumpLeft;
+		JumpRight = Assets.playerJumpRight;
+		DeathLeft = Assets.playerDeathLeft;
+		DeathRight = Assets.playerDeathRight;
 	}
 
 	public void anim() {
 		if (movX < 0) {
-			current = RunLeft;
+			if (running)
+				current = RunLeft;
+			else if (getOnAir())
+				current = JumpLeft;
+			else
+				current = WalkLeft;
 			wasMoving = -1;
 		} else if (movX > 0) {
-			current = RunRight;
+			if (running)
+				current = RunRight;
+			else if (getOnAir())
+				current = JumpRight;
+			else
+				current = WalkRight;
 			wasMoving = 1;
 		} else {
-			if (wasMoving < 0)
-				current = idleLeft;
-			else
-				current = idleRight;
+			if (wasMoving < 0) {
+				if (getOnAir())
+					current = JumpLeft;
+				else
+					current = idleLeft;
+			} else {
+				if (getOnAir())
+					current = JumpRight;
+				else
+					current = idleRight;
+			}
 		}
 
 		current.runAnimation();
