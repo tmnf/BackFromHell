@@ -3,7 +3,6 @@ package Entities;
 import java.awt.Rectangle;
 
 import MainGame.Game;
-import Utils.Animation;
 import Utils.Assets;
 import Utils.GamePosition;
 import Utils.Temporizer;
@@ -26,9 +25,6 @@ public class Zombie extends Entitie {
 
 	@Override
 	public void initAnims() {
-		anim = new Animation(5, Assets.zombieLeft[0], Assets.zombieLeft[1], Assets.zombieLeft[0], Assets.zombieLeft[3]);
-		anim2 = new Animation(5, Assets.zombieRight[0], Assets.zombieRight[1], Assets.zombieRight[0],
-				Assets.zombieRight[3]);
 		idle = Assets.zombie;
 	}
 

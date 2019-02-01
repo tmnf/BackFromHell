@@ -43,12 +43,12 @@ public class Player extends PhysicalBody {
 		super.update();
 		Game.getInstance().getCamera().centerOnEntity(this);
 		move();
-		anim();
+//		anim();
 	}
 
 	@Override
 	public void render(Graphics g) {
-		current.drawAnimation(g, pt.x, pt.y, 0);
+//		current.drawAnimation(g, pt.x, pt.y, 0);
 	}
 
 	@Override

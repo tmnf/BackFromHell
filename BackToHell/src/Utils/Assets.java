@@ -35,8 +35,6 @@ public class Assets {
 
 	// Entities
 	public static BufferedImage zombie;
-	public static BufferedImage[] zombieRight = new BufferedImage[4];
-	public static BufferedImage[] zombieLeft = new BufferedImage[4];
 	//
 
 	private static SpriteSheet playerTile;
@@ -45,33 +43,30 @@ public class Assets {
 	private static SpriteSheet tiles;
 
 	public static void init() {
-		playerTile = new SpriteSheet(ImageHandler.loadImage("/sprites/player.png"));
-		tiles = new SpriteSheet(ImageHandler.loadImage("/sprites/tiles.png"));
-		zombieTile = new SpriteSheet(ImageHandler.loadImage("/sprites/zombie.png"));
-		// skeletonTile = new
-		// SpriteSheet(ImageLoader.loadImage("/sprites/skeleton.png"));
-		startPlayer();
 		startTiles();
-		startEntities();
+
+//		startPlayer();
+
+//		startEntities();
 		getMenu();
 		getGUI();
 	}
 
 	private static void getGUI() {
-		lifebar = ImageHandler.loadImage("/images/lifebar.png");
+		lifebar = ImageHandler.loadImage("/images/GUI/lifebar.png");
 
 		// Loading
-		loadingScreen = ImageHandler.loadImage("/images/loading.png");
+		loadingScreen = ImageHandler.loadImage("/images/GUI/loading.png");
 	}
 
 	public static void getMenu() {
-		background = ImageHandler.loadImage("/images/background.png");
-		single = ImageHandler.loadImage("/images/singlebutton.png");
-		singlepress = ImageHandler.loadImage("/images/singlepressed.png");
-		multi = ImageHandler.loadImage("/images/multi.png");
-		multipressed = ImageHandler.loadImage("/images/multipressed.png");
-		exit = ImageHandler.loadImage("/images/exit.png");
-		exitpress = ImageHandler.loadImage("/images/exitpressed.png");
+		background = ImageHandler.loadImage("/images/MenuImages/background.png");
+		single = ImageHandler.loadImage("/images/MenuImages/singlebutton.png");
+		singlepress = ImageHandler.loadImage("/images/MenuImages/singlepressed.png");
+		multi = ImageHandler.loadImage("/images/MenuImages/multi.png");
+		multipressed = ImageHandler.loadImage("/images/MenuImages/multipressed.png");
+		exit = ImageHandler.loadImage("/images/MenuImages/exit.png");
+		exitpress = ImageHandler.loadImage("/images/MenuImages/exitpressed.png");
 	}
 
 	public static void startPlayer() {
@@ -100,25 +95,14 @@ public class Assets {
 
 	public static void startEntities() {
 
-		int width = 30;
-		int height = 40;
-
-		zombie = zombieTile.crop(width, 0, width, height);
-		zombieRight[0] = zombieTile.crop(0, 2 * height, width, height);
-		zombieRight[1] = zombieTile.crop(width, 2 * height, width, height);
-		zombieRight[2] = zombieTile.crop(0, 2 * height, width, height);
-		zombieRight[3] = zombieTile.crop(width * 2, 2 * height + 1, width, height);
-
-		zombieLeft[0] = zombieTile.crop(0, height, width, height);
-		zombieLeft[1] = zombieTile.crop(width, height, width, height);
-		zombieLeft[2] = zombieTile.crop(0, height, width, height);
-		zombieLeft[3] = zombieTile.crop(width * 2, height, width, height);
 	}
 
 	public static void startTiles() {
+		tiles = new SpriteSheet(ImageHandler.loadImage("/sprites/tiles.png"));
+
 		grass = tiles.crop(width * 5 + 5, 0, width, height);
 		dirt = tiles.crop(width * 6 + 6, 0, width, height);
-		sky = ImageHandler.loadImage("/images/sky.png");
+		sky = ImageHandler.loadImage("/images/GUI/sky.png");
 		rock = tiles.crop(7 * width + 7, 0, width, height);
 	}
 
